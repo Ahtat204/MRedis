@@ -1,0 +1,10 @@
+setps.md
+.gitgnore
+.idea/.gitignore
+.idea/MRedis.iml
+.idea/editor.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+steps.md
+cmake-build-debug
