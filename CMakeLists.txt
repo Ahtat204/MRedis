@@ -4,4 +4,6 @@ set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_BUILD_TYPE Release)
 include_directories(include)
 
-add_library(MRedis main.c)
+add_library(MRedis main.c
+        resp.c
+        ringbuffer.c)
