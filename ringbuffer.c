@@ -16,6 +16,6 @@ char readData(ringbuffer* ringbuffer)
 }
 char writeData(ringbuffer* ringbuffer,char character)
 {
-    
+    *(ringbuffer->write)= character;
 }
 
