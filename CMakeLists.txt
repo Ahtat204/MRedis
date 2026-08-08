@@ -6,4 +6,5 @@ include_directories(include)
 
 add_library(MRedis main.c
         resp.c
-        ringbuffer.c)
+        ringbuffer.c
+        ringbuffer.h)
