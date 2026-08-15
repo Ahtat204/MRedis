@@ -55,7 +55,13 @@ sys_log_count++; \
 /**
  * @brief Forward declaration mapping the underlying concrete buffer layout instance.
  */
-typedef struct buffer ringbuffer;
+typedef struct buffer
+{
+ char* buffer;
+ char *read;
+ char *write;
+ size_t size;
+}ringbuffer;
 
 /**
  * @brief Allocates or zeros internal tracking structure members at early lifecycle bootstrap.

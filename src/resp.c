@@ -1,3 +1,4 @@
+#if __linux__
 #include <stddef.h>
 #include <stdint.h>
 
@@ -29,5 +30,6 @@ typedef struct RespObject {
     } value;
     size_t len;                // Length for strings
 } RespObject;
+#endif
 
 

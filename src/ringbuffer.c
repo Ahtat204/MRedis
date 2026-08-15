@@ -1,15 +1,9 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
-#include"ringbuffer.h"
+#include "ringbuffer.h"
 
-typedef struct buffer
-{
-    char* buffer;
-    char *read;
-    char *write;
-    size_t size;
-}ringbuffer;
+
 
 int init(ringbuffer *rb)
 {
