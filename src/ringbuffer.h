@@ -52,9 +52,7 @@ fprintf(stderr, "[ERROR] %s\n", msg); \
 sys_log_count++; \
 } while(0)
 
-/**
- * @brief Forward declaration mapping the underlying concrete buffer layout instance.
- */
+
 typedef struct buffer
 {
  char* buffer;
@@ -72,7 +70,7 @@ typedef struct buffer
  * @param[in,out] rb Opaque handle referencing the allocation target instance.
  * @return int Status validation integer matching predefined \c RB_ codes.
  */
-int init(ringbuffer *rb);
+int8_t init(ringbuffer* rb);
 
 /**
  * @brief Extracts the oldest unparsed single byte sequence from the current reference position.
@@ -96,5 +94,5 @@ char readData(ringbuffer* rb);
  * @return uint8_t Status validation token matching predefined \c RB_ configuration codes.
  */
 uint8_t writeData(ringbuffer* b, const char character);
-
+uint8_t freeBuffer(ringbuffer* b);
 #endif //MREDIS_RINGBUFFER_H

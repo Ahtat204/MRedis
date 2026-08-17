@@ -5,7 +5,7 @@
 
 Test(resp,ring_buffer)
 {
-    struct buffer rb={
-    };
-    rb.buffer=malloc(sizeof(char));
+    struct buffer* rb=malloc(sizeof(struct buffer));
+    const int result=init(rb);
+    
 }
