@@ -30,7 +30,7 @@ uint8_t writeData(ringbuffer* b, const char character)
 {
     if (b->size == RINGBUFFER_SIZE)
     {
-        printf(stderr);
+        fprintf(stderr, "Error: Allocation failed.\n");
         return 0;
     }
     b->buffer[*b->write] = character;

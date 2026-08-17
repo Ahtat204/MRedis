@@ -1,0 +1,1 @@
+gcc -o test_runner test/ringbuffer.test.c src/ringbuffer.c -lcriterion -o ./test_runner.txt
