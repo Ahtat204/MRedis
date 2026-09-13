@@ -1,1 +1,1 @@
-gcc -o test_runner test/ringbuffer.test.c src/ringbuffer.c -lcriterion -o ./test_runner.txt
+gcc -o tests src/ringbuffer.c test/ringbuffer.test.c -lcriterion -Wl,-rpath=/usr/local/lib64 && ./tests

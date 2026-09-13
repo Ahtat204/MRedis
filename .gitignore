@@ -9,3 +9,6 @@ setps.md
 steps.md
 cmake-build-debug
 RESP.md
+tests
+test_runner.txt
+automate.sh

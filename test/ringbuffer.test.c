@@ -9,6 +9,8 @@ Test(resp,ring_buffer)
     const int result=init(rb);
     cr_expect_neq(rb, NULL,"the buffer struct must not be null");
     cr_expect_neq(rb->buffer,NULL,"the buffer array must not be null");
+    cr_expect_neq(rb->read,NULL,"the buffer read pointer must not be null");
+    cr_expect_neq(rb->write,NULL,"the buffer write pointer must not be null");
     free(rb);
     
 }
