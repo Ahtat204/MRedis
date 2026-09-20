@@ -1,19 +1,16 @@
-# Find the Criterion package on the local system
 find_package(PkgConfig REQUIRED)
-pkg_check_modules(CRITERION REQUIRED criterion)
+pkg_check_modules(CRITERION REQUIRED IMPORTED_TARGET criterion)
+set(CMAKE_BUILD_TYPE Debug)
+# Cleaned up: Removed the duplicate file compilation since it's inside MRedis
+add_executable(mredis_tests ringbuffer.test.c)
 
-# Create the test executable
-add_executable(test_suite ringbuffer.test.c)
-
-# Link the implementation library and Criterion
-target_link_libraries(test_suite
+target_link_libraries(mredis_tests
         PRIVATE
-        math_utils
-        ${CRITERION_LIBRARIES}
+        MRedis
+        PkgConfig::CRITERION
 )
 
-# Include Criterion header directories
-target_include_directories(test_suite PRIVATE ${CRITERION_INCLUDE_DIRS})
-
-# Register the executable as an official CTest case
-add_test(NAME math_unit_tests COMMAND test_suite)
+# Corrected the COMMAND to match your executable target name
+add_test(NAME ringbuffer_tests COMMAND mredis_tests)
+# Add this right after defining your test executable
+target_compile_options(mredis_tests PRIVATE -g -O0)

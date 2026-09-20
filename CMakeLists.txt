@@ -1,14 +1,15 @@
 cmake_minimum_required(VERSION 3.30)
-project(MRedis)
-set(CMAKE_CXX_STANDARD 26)
+project(MRedis LANGUAGES C) # Set the project language globally here
+
 set(CMAKE_BUILD_TYPE Release)
-include_directories(src)
+
+# Automatically creates the BUILD_TESTING option and calls enable_testing()
+include(CTest)
+
+# Add production source code directory
+add_subdirectory(src)
+
+# Conditionally include tests
 if (BUILD_TESTING)
     add_subdirectory(test)
-endif ()
-include(CTest)
-add_library(MRedis src/main.c
-        src/resp.c
-        src/ringbuffer.c
-        src/ringbuffer.h
-        test/ringbuffer.test.c)
+endif()
