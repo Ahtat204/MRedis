@@ -4,6 +4,7 @@ add_library(MRedis
         resp.c
         ringbuffer.c
         ringbuffer.h
+        resp.h
 )
 
 # Best practice: link include directories directly to the target 
