@@ -25,6 +25,7 @@ typedef enum {
     RESP_INVALID
 } RespType;
 typedef struct RespObject {
+    size_t len;                // Length for strings
     RespType type;
     union {
         char *str;             // For Simple String, Error, and Bulk String
@@ -34,7 +35,7 @@ typedef struct RespObject {
             size_t count;
         } array;               // For Arrays
     } value;
-    size_t len;                // Length for strings
+    
 } RespObject;
 
 // this will read the resp serialized command , ex : $5\r\nAhmed\r\n"
@@ -42,6 +43,7 @@ char* respToCommand(const char* cmd);
 char* readArray(const char* cmd);
 int8_t readInt(const char* cmd);
 char* readString(const char* cmd);
+RespObject* convertStringToResp(const char* str);
 RespObject* commandToResp(const char* cmd,const size_t len); // this will convert to human-readable command ex: SET key value
 #endif//__linux
 #endif //MREDIS_RESP_H
