@@ -1,6 +1,7 @@
 #include "resp.h"
 
 #include <stdlib.h>
+#include <tgmath.h>
 
 char* readRespObject(const char* response)
 {
@@ -21,6 +22,12 @@ char* readRespObject(const char* response)
 }
 char* respToCommand(const char* cmd)
 {
+    const char first=cmd[0];
+    if (first == '*') //arrayy
+    {
+        const char second=cmd[1];
+        const uint8_t arraySize=second-'0';
+    }
 }
 RespObject* convertStringToResp(const char* str)
 {
@@ -43,6 +50,7 @@ RespObject* convertStringToResp(const char* str)
     }
     
 }
-RespObject* commandToResp(const char* cmd, const size_t len)
+inline RespObject* commandToResp(const char* cmd, const size_t len)
 {
+    
 }
