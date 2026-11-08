@@ -7,6 +7,8 @@
 #if __linux__
 #include <stddef.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef enum {
     PARSER_STATE_READING_TYPE,
@@ -25,26 +27,40 @@ typedef enum {
     RESP_INVALID
 } RespType;
 typedef struct RespObject {
-    size_t len;                // Length for strings
     RespType type;
-    union {
-        char *str;             // For Simple String, Error, and Bulk String
-        int64_t integer;       // For Integers
-        struct {
-            struct RespObject **elements;
-            size_t count;
-        } array;               // For Arrays
-    } value;
-    
+    long long integer_value;    // For :integers
+    char *string_value;        // For +, -, and $ strings
+    int string_len;            // For $ strings (can be -1 for Null Bulk String)
+    struct RespObject **array_elements; // For * arrays
+    int array_len;             // For * arrays (can be -1 for Null Array)
 } RespObject;
+static const char* find_crlf(const char *src, size_t limit) {
+    for (size_t i = 0; i < limit - 1; i++) {
+        if (src[i] == '\r' && src[i+1] == '\n') {
+            return &src[i];
+        }
+    }
+    return NULL;
+}
+// Helper: Parse a number line ending with \r\n
+static const char* parse_long_long(const char *src, size_t limit, long long *out_val) {
+    const char *crlf = find_crlf(src, limit);
+    if (!crlf) return NULL;
 
+    char tmp[32];
+    size_t digits_len = crlf - src;
+    if (digits_len >= sizeof(tmp)) return NULL;
+
+    strncpy(tmp, src, digits_len);
+    tmp[digits_len] = '\0';
+    *out_val = atoll(tmp);
+
+    return crlf + 2; // Move past \r\n
+}
 // this will read the resp serialized command , ex : $5\r\nAhmed\r\n"
-char* respToCommand(const char* cmd);
-char* readArray(const char* cmd);
-int8_t readInt(const char* cmd);
-char* readString(const char* cmd);
-RespObject* convertStringToResp(const char* str);
-RespObject* commandToResp(const char* cmd,const size_t len); // this will convert to human-readable command ex: SET key value
+char* encode_client_command(int argc, char **argv, size_t *out_len);
+void free_resp_object(RespObject *obj);
+RespObject* decode_resp(const char *src, size_t limit, size_t *bytes_read);
 #endif//__linux
 #endif //MREDIS_RESP_H
 
