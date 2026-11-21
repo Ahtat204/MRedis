@@ -5,6 +5,9 @@ add_library(MRedis
         ringbuffer.c
         ringbuffer.h
         resp.h
+        utils.h
+        log.h
+        log.c
 )
 
 # Best practice: link include directories directly to the target 
